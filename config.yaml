@@ -1,0 +1,66 @@
+# ============================================================================
+# RACON Configuration File
+# Reconnaissance & Analysis Console
+# ----------------------------------------------------------------------------
+# All settings are optional and can be overridden on the command line.
+# ============================================================================
+
+# General scan settings
+scan:
+  threads: 10                    # Max worker threads for concurrent tasks
+  request_timeout: 15            # HTTP timeout in seconds
+  max_retries: 3                 # Retries on transient network failures
+  verify_ssl: true               # Validate TLS certificates
+  follow_redirects: true         # Follow HTTP redirects
+  crawl_depth: 2                 # Website crawler depth limit
+  max_pages: 50                  # Website crawler page limit
+  subdomain_limit: 100           # Max subdomains to resolve per target
+
+# User-Agent rotation
+user_agents:
+  - "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+  - "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.5 Safari/605.1.15"
+  - "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36"
+  - "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0"
+
+# Output
+output:
+  directory: output              # Base output directory
+  report_format: html            # Default report format (html/json/csv/pdf/all)
+  theme: auto                    # Rich theme: auto / dark / light
+
+# Logging
+logging:
+  level: INFO                    # DEBUG / INFO / WARNING / ERROR
+  file: true                     # Write logs to file as well
+  history: true                  # Persist scan history metadata
+
+# Reporting
+reporting:
+  company_name: "RACON"
+  author: "Security Assessment Team"
+  classification: "Confidential"
+  include_screenshots_placeholder: true
+
+# Module toggles (set false to disable a module)
+modules:
+  basic_info: true
+  dns_intelligence: true
+  domain_intelligence: true
+  network: true
+  web_enumeration: true
+  wordpress: true
+  subdomains: true
+  ssl_analysis: true
+
+# Network integration (Nmap) - requires nmap binary installed
+network:
+  nmap_enabled: true
+  nmap_binary: nmap
+  port_range: "80,443,8080,8443"     # Authorized port scan range
+  scan_speed: T3                     # Timing template
+
+# Passive data sources (no API keys required)
+passive_sources:
+  crt_sh: true                       # crt.sh certificate transparency
+  hackertarget: true                 # HackerTarget API
