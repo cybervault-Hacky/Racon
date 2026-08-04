@@ -1,5 +1,8 @@
-# RACON — runtime dependencies
-# Python 3.12+ recommended (works on 3.10+)
+# RACON — runtime dependencies (Termux / Android compatible)
+# All packages here are pure-Python or provide pre-built wheels for ARM64.
+# Heavy native-build packages (lxml, reportlab, cryptography) have been
+# moved to requirements-optional.txt so RACON installs cleanly on Termux.
+
 rich>=13.0
 requests>=2.31
 beautifulsoup4>=4.12
@@ -8,11 +11,5 @@ python-whois>=0.8
 python-nmap>=0.7
 geoip2>=4.7
 tldextract>=5.0
-lxml>=4.9
 jinja2>=3.1
-reportlab>=4.0
-PyYAML>=6.0
-cryptography>=41.0
-
-# Optional (recommended for development)
-pytest>=7.0
+ruamel.yaml>=0.18.0

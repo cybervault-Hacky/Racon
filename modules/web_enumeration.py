@@ -322,7 +322,10 @@ class WebEnumerationModule(BaseModule):
         if not html:
             return None
         try:
-            soup = BeautifulSoup(html, "lxml")
+            try:
+                soup = BeautifulSoup(html, "lxml")
+            except Exception:  # noqa: BLE001
+                soup = BeautifulSoup(html, "html.parser")
             title = soup.title
             if title and title.string:
                 return " ".join(title.string.split())

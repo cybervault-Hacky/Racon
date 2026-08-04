@@ -13,6 +13,12 @@ JSON / CSV / PDF reporting.
 
 ---
 
+<p align="center">
+  <img src="assets/banner.jpg" alt="RACON Banner" width="900"/>
+</p>
+
+---
+
 ## ✨ Highlights
 
 - 🔍 **8 modular scan modules** — basic info, DNS, WHOIS/domain, network, web
@@ -26,7 +32,7 @@ JSON / CSV / PDF reporting.
   placeholder, metadata, and a timestamp.
 - ⚙️ **Fully configurable** — YAML configuration, user-agent rotation,
   timeouts, thread counts, output directories, logging levels, and themes.
-- 🌍 **Cross-platform** — Linux, macOS, Windows, and Termux.
+- 🌍 **Cross-platform** — Linux, macOS, Windows, and Termux (Android / Python 3.10–3.14).
 
 ---
 
@@ -40,8 +46,11 @@ git clone https://github.com/your-org/RACON.git && cd RACON
 python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
-# 3. Install dependencies
+# 3. Install dependencies (pure-Python / Termux-compatible)
 pip install -r requirements.txt
+
+# 4. (Optional) Native-heavy extras for PDF reports / XML parsing / TLS
+# pip install -r requirements-optional.txt
 
 # 4. Scan a target
 python racon.py --target example.com
@@ -85,6 +94,25 @@ output/
 ├── logs/        # racon.log + per-scan logging
 └── scans/       # Scan history metadata (history.jsonl)
 ```
+
+---
+
+## 🖼️ Screenshots
+
+<p align="center">
+  <img src="assets/screenshots/starter.jpg" alt="Starter" width="600"/><br/>
+  <sub>Starter — Interactive terminal launch</sub>
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/full-scan.jpg" alt="Full Scan" width="600"/><br/>
+  <sub>Full Scan — Completed module results</sub>
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/report.jpg" alt="Report" width="600"/><br/>
+  <sub>Report — Executive summary preview</sub>
+</p>
 
 ---
 
@@ -158,6 +186,23 @@ See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md).
 - [Feature List](docs/FEATURES.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Contributing Guide](docs/CONTRIBUTING.md)
+
+## 📱 Termux (Android) Quick Install
+
+```bash
+pkg update && pkg install python python-pip git
+# Optional: pkg install python@3.14
+
+git clone https://github.com/cybervault-Hacky/Racon.git
+cd Racon
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python racon.py --version
+python racon.py -t example.com
+```
+
+See [`docs/TERMUX.md`](docs/TERMUX.md) for full compatibility notes,
+optional package explanations, and defensive-feature preservation details.
 
 ## 📜 License
 

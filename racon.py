@@ -160,6 +160,14 @@ def scan_headless(cfg: Any, target: str, formats: str | None,
         result = scanner.run(formats=formats, modules=modules)
     console.print()
     results_summary(result)
+    console.print()
+    console.print(Panel(
+        "[bold]Created by[/]\nSarthak Bharambe\n\n"
+        "[bold]YouTube[/]\nCyber Vault\n\n"
+        "[bold]Instagram[/]\n@cyber_vault123",
+        title="[bold]Credits[/]", border_style="cyan", expand=False,
+        padding=(1, 4),
+    ), justify="center")
 
 
 # ---------------------------------------------------------------------------

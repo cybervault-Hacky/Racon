@@ -13,7 +13,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any
 
-import yaml
+try:
+    from ruamel.yaml import YAML
+    _yaml = YAML(typ="safe")
+except Exception:  # noqa: BLE001
+    # Graceful fallback for environments without ruamel.yaml
+    _yaml = None
 
 from core.exceptions import ConfigurationError
 
@@ -248,9 +253,16 @@ def load_config(path: str | Path | None = None) -> Config:
     if path.exists():
         try:
             with path.open("r", encoding="utf-8") as fh:
-                loaded = yaml.safe_load(fh) or {}
-        except yaml.YAMLError as exc:
-            raise ConfigurationError(f"Invalid YAML in {path}: {exc}") from exc
+                if _yaml is not None:
+                    loaded = _yaml.load(fh) or {}
+                else:
+                    # Fallback: treat as empty config if YAML parser missing
+                    loaded = {}
+        except Exception as exc:  # noqa: BLE001
+            from ruamel.yaml.error import YAMLError
+            if isinstance(exc, YAMLError):
+                raise ConfigurationError(f"Invalid YAML in {path}: {exc}") from exc
+            raise ConfigurationError(f"Failed to load config {path}: {exc}") from exc
         merged = _deep_merge(merged, loaded)
     elif str(path) != "config.yaml":
         raise ConfigurationError(f"Config file not found: {path}")
