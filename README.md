@@ -95,20 +95,20 @@ __________________________________________
 
 # Quick Start
 
-*Basic Scan =
+* Basic Scan =
 python racon.py -t example.com
 
-*Generate All Reports =
+* Generate All Reports =
 python racon.py -t example.com -f all
 
-*Specific Modules =
+* Specific Modules =
 python racon.py -t example.com --modules
 
-*basic_info,dns_intelligence
+* basic_info,dns_intelligence
 Interactive Mode =
 python racon.py --command
 
-*Project Structure
+* Project Structure
 RACON
 │
 ├── assets
@@ -124,7 +124,7 @@ RACON
 └── README.md
 Reports
 
-*RACON automatically generates professional reports including
+* RACON automatically generates professional reports including
 ==>
    °HTML
    °JSON
@@ -135,33 +135,37 @@ Reports are saved inside
 output/reports/
 Documentation
 
-Installation Guide
-Usage Guide
-Module Reference
-Feature List
-Roadmap
-Contributing Guide
-Termux Guide
-Platform Support
-Platform
-Supported
-Linux
-✅
-Windows
-✅
-macOS
-✅
-Termux
-✅
-Author
+* Installation Guide
+* Usage Guide
+* Module Reference
+* Feature List
+* Roadmap
+* Contributing Guide
+* Termux Guide
+* Platform Support
+* Platform
+* Supported
+
+* Linux = ✅
+
+* Windows = ✅
+
+* macOS = ✅
+
+* Termux = ✅
+
+Author 
 Sarthak Bharambe
+
 YouTube: Cyber Vault
+
 Instagram: @cyber_vault123
+
 License
 MIT License
-�
+
 Made with ❤️ for the Cybersecurity Community
 
 Created by Sarthak Bharambe
-�
-```
+
+
