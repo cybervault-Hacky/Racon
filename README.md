@@ -2,7 +2,7 @@
   <img src="assets/banner.jpg" alt="RACON Banner" width="100%">
 </p>
 
-<h1 align="center">🛰️ RACON</h1>
+<h1 align="center">RACON</h1>
 <h3 align="center">Reconnaissance & Analysis Console</h3>
 
 <p align="center">
