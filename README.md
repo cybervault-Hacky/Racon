@@ -91,16 +91,24 @@ source .venv/bin/activate
 
 pip install -r requirements.txt
 
-Quick Start
-Basic Scan
+__________________________________________
+
+# Quick Start
+
+*Basic Scan =
 python racon.py -t example.com
-Generate All Reports
+
+*Generate All Reports =
 python racon.py -t example.com -f all
-Specific Modules
-python racon.py -t example.com --modules basic_info,dns_intelligence
-Interactive Mode
+
+*Specific Modules =
+python racon.py -t example.com --modules
+
+*basic_info,dns_intelligence
+Interactive Mode =
 python racon.py --command
-Project Structure
+
+*Project Structure
 RACON
 │
 ├── assets
@@ -115,14 +123,18 @@ RACON
 ├── racon.py
 └── README.md
 Reports
-RACON automatically generates professional reports including
-HTML
-JSON
-CSV
-PDF
+
+*RACON automatically generates professional reports including
+==>
+   °HTML
+   °JSON
+   °CSV
+   °PDF
+
 Reports are saved inside
 output/reports/
 Documentation
+
 Installation Guide
 Usage Guide
 Module Reference
