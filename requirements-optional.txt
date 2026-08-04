@@ -1,0 +1,16 @@
+# RACON — optional native / build-heavy dependencies
+# Install these only if you need PDF reports (reportlab), XML parsing
+# acceleration (lxml), or advanced TLS certificate analysis (cryptography).
+# On Termux these often require build tools (rustc, libxml2-dev, etc.).
+
+# XML / HTML accelerator (BeautifulSoup can fall back to html.parser)
+lxml>=4.9
+
+# PDF report generation (core/reporting.py degrades gracefully without it)
+reportlab>=4.0
+
+# Advanced X.509 / TLS introspection (ssl_analysis falls back to getpeercert)
+cryptography>=41.0
+
+# Development / testing
+pytest>=7.0
