@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RACON Scan Report — {{ package.summary.target }}</title>
+<style>
+  :root {
+    --bg: #0f1220; --panel: #181c2e; --text: #e6e8f0; --muted: #8b90a8;
+    --accent: #7c5cff; --green: #3ddc84; --amber: #ffb454; --red: #ff5c5c;
+    --blue: #4fc3f7; --border: #2a2f45;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 60px; }
+  header { padding: 28px 0 20px; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+  h1 { margin: 0 0 6px; font-size: 28px; letter-spacing: .5px; }
+  .sub { color: var(--muted); font-size: 14px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin: 24px 0; }
+  .stat { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .stat .label { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .5px; }
+  .stat .value { font-size: 24px; font-weight: 600; margin-top: 4px; }
+  .panel { background: var(--panel); border: 1px solid var(--border); border-radius: 10px; padding: 18px 20px; margin: 18px 0; }
+  .panel h2 { margin: 0 0 12px; font-size: 18px; color: var(--accent); }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; text-transform: uppercase; font-size: 11px; letter-spacing: .5px; }
+  code { background: #0a0d18; padding: 2px 6px; border-radius: 4px; font-size: 12px; word-break: break-all; }
+  .sev { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 600; }
+  .sev-info { background: #1a2b3d; color: var(--blue); }
+  .sev-low { background: #2a2a1a; color: var(--amber); }
+  .sev-medium { background: #3d2418; color: var(--amber); }
+  .sev-high { background: #3d1a1a; color: var(--red); }
+  .sev-critical { background: #4a0f0f; color: var(--red); }
+  .finding { padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .finding:last-child { border-bottom: none; }
+  .finding .ftitle { font-weight: 600; }
+  .finding .desc { color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .muted { color: var(--muted); }
+  .placeholder { border: 2px dashed var(--border); border-radius: 10px; padding: 30px;
+                 text-align: center; color: var(--muted); }
+  footer { margin-top: 40px; color: var(--muted); font-size: 12px;
+           border-top: 1px solid var(--border); padding-top: 16px; }
+  a { color: var(--blue); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🛰️ RACON Scan Report</h1>
+    <div class="sub">
+      Reconnaissance &amp; Analysis Console &nbsp;•&nbsp; Target:
+      <strong>{{ package.summary.target }}</strong>
+    </div>
+  </header>
+
+  <!-- Executive Summary -->
+  <section class="panel">
+    <h2>Executive Summary</h2>
+    <p>
+      This report documents an authorized reconnaissance and asset inventory
+      assessment performed against
+      <strong>{{ package.summary.target }}</strong>. The assessment used
+      passive and low-impact information-gathering techniques to catalogue the
+      target's exposed infrastructure, public records, and web-facing
+      configuration.
+    </p>
+    <div class="grid">
+      <div class="stat"><div class="label">Modules Completed</div>
+        <div class="value">{{ package.summary.modules_completed }}/{{ package.summary.modules_total }}</div></div>
+      <div class="stat"><div class="label">Total Findings</div>
+        <div class="value">{{ package.summary.findings_total }}</div></div>
+      <div class="stat"><div class="label">Elapsed (s)</div>
+        <div class="value">{{ package.summary.elapsed_total }}</div></div>
+    </div>
+    <h2 style="margin-top:24px;">Severity Distribution (Informational)</h2>
+    <table>
+      <tr><th>Severity</th><th>Count</th></tr>
+      {% for sev in ["info","low","medium","high","critical"] %}
+      <tr>
+        <td><span class="sev sev-{{ sev }}">{{ sev|upper }}</span></td>
+        <td>{{ package.summary.severity_counts.get(sev, 0) }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <!-- Metadata -->
+  <section class="panel">
+    <h2>Metadata</h2>
+    <table>
+      {% for key, value in package.metadata.items() %}
+      <tr><th style="width:30%;">{{ key|replace('_',' ')|title }}</th>
+          <td>{{ value }}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <!-- Findings -->
+  <section class="panel">
+    <h2>Findings</h2>
+    {% if package.findings %}
+      {% for f in package.findings %}
+      <div class="finding">
+        <div class="ftitle">
+          <span class="sev sev-{{ f.severity }}">{{ f.severity|upper }}</span>
+          &nbsp;{{ f.title }}
+          <span class="muted">— {{ f.module }}</span>
+        </div>
+        {% if f.description %}<div class="desc">{{ f.description }}</div>{% endif %}
+        {% if f.evidence %}<div class="desc"><code>{{ f.evidence }}</code></div>{% endif %}
+        {% if f.recommendation %}<div class="desc muted">💡 {{ f.recommendation }}</div>{% endif %}
+      </div>
+      {% endfor %}
+    {% else %}
+      <p class="muted">No findings recorded.</p>
+    {% endif %}
+  </section>
+
+  <!-- Screenshots placeholder -->
+  <section class="panel">
+    <h2>Screenshots</h2>
+    {% if config_screenshots %}
+      <div class="placeholder">🖼️ Screenshots will be attached here during archival.</div>
+    {% else %}
+      <p class="muted">Screenshots section disabled in configuration.</p>
+    {% endif %}
+  </section>
+
+  <!-- Module detail -->
+  <section class="panel">
+    <h2>Module Data (JSON)</h2>
+    <p class="muted">Full raw module results are available in the JSON report.
+       Selected highlights:</p>
+    <table>
+      {% for mod, data in package.modules.items() %}
+      <tr><th style="width:30%;">{{ mod }}</th>
+          <td class="muted">{{ data|string|truncate(200) }}</td></tr>
+      {% endfor %}
+    </table>
+  </section>
+
+  <footer>
+    Generated by <strong>RACON</strong> on {{ package.metadata.timestamp }}<br>
+    Classification: {{ package.metadata.classification }} &nbsp;•&nbsp;
+    Author: {{ package.metadata.author }}
+  </footer>
+</div>
+</body>
+</html>

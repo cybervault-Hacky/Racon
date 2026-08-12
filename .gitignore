@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# RACON generated output
+output/reports/*
+output/logs/*
+output/scans/*
+!output/reports/.gitkeep
+!output/logs/.gitkeep
+!output/scans/.gitkeep
+
+# GeoIP database (large binary; download separately)
+data/GeoLite2-*.mmdb
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
